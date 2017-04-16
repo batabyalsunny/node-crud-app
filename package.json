@@ -1,0 +1,24 @@
+{
+  "name": "node-crud-app",
+  "version": "1.0.0",
+  "description": "Basic CRUD application using node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/batabyalsunny/node-crud-app.git"
+  },
+  "author": "Sunny Batabyal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/batabyalsunny/node-crud-app/issues"
+  },
+  "homepage": "https://github.com/batabyalsunny/node-crud-app#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2"
+  }
+}
