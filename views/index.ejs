@@ -17,7 +17,7 @@
   <body>
     <header>
       <!--Materialize nav bar -->
-      <nav>
+      <nav class="green">
         <div class="nav-wrapper">
           <a href="#" class="brand-logo center">Node.js CRUD App</a>
         </div>
@@ -26,35 +26,30 @@
 
     <div class="container">
       <div class="row">
-        <form class="col s12">
-          <div class="row">
-            <div class="input-field col s10 m10 l11">
-              <textarea id="message" class="materialize-textarea"></textarea>
-              <label for="message">Message</label>
-            </div>
+        <div class="input-field col s10 m10 l11">
+          <input id="message" type="text" class="validate"
+          name="message" required>
+          <label for="message">Message</label>
+        </div>
 
-            <div class="input-field col s2 m2 l1 right-align">
-              <button class="btn-floating btn-large waves-effect waves-light red"
-              type="submit" id="addBtn">
-                <i class="material-icons">add</i>
-              </button>
-            </div>
-          </div>
-        </form>
+        <div class="input-field col s2 m2 l1 right-align">
+          <button class="btn-floating waves-effect waves-light red"
+          type="submit" id="addBtn">
+            <i class="material-icons">add</i>
+          </button>
+        </div>
       </div>
-
 
       <div class="row">
         <ul class="collection with-header">
-          <li class="collection-header"><h4>Items</h4></li>
-          <li class="collection-item">Alvin</li>
-          <li class="collection-item">Alvin</li>
-          <li class="collection-item">Alvin</li>
-          <li class="collection-item">Alvin</li>
+          <li class="collection-header center"><h4>Messages</h4></li>
+          <% data.forEach(function(item) { %>
+            <li class="collection-item"><%= item.message %>
+            </li>
+          <% }); %>
         </ul>
       </div>
     </div>
-    
 
     <!--Import jQuery -->
     <script
@@ -66,6 +61,17 @@
     <!-- Compiled and minified JavaScript -->
     <script
     src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js">
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#addBtn").on('click', function() {
+          var data = {message: $("#message").val()};
+          jQuery.post('/insert', data, function() {
+            location.reload();
+          });
+        });
+      });
     </script>
   </body>
 </html>
