@@ -15,9 +15,17 @@ app.get('/', function(req, res) {
   res.render('index', {data: data});
 });
 
-// handle post request
+// handle post request for insert
 app.post('/insert', urlencodedParser, function(req, res) {
   data.push(req.body);
+  res.send(data);
+});
+
+// handle delete request
+app.delete('/del/:item', function(req, res) {
+  data = data.filter(function (item) {
+    return item.message !== req.params.item;
+  });
   res.send(data);
 });
 
