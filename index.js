@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 var app = express();
 
@@ -29,6 +30,31 @@ app.delete('/del/:item', function(req, res) {
   });
   res.send(data);
 });
+
+// connect to database
+mongoose.connect('mongodb://localhost/test');
+
+// create database schema
+var testSchema = new mongoose.Schema({
+  name: String,
+  age: Number
+});
+
+// create model
+var TestModel = mongoose.model('TestModel', testSchema);
+
+// insert item
+var dbItem = TestModel({
+  name: 'Sunny',
+  age: 23
+});
+
+dbItem.save(function (err) {
+  if (err) {
+    throw err;
+  }
+  console.log('Item Saved');
+})
 
 // set listen port
 app.listen(3000);
