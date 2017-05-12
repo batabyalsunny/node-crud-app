@@ -17,26 +17,62 @@
   <body>
     <header>
       <!--Materialize nav bar -->
-      <nav class="green">
+      <nav class="light-blue">
         <div class="nav-wrapper">
           <a href="#" class="brand-logo center">Node.js CRUD App</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Home</a></li>
+            <li><a href="badges.html">View</a></li>
+          </ul>
         </div>
       </nav>
     </header>
 
     <div class="container">
       <div class="row">
-        <div class="input-field col s10 m10 l11">
-          <input id="message" type="text" class="validate"
-          name="message" required>
-          <label for="message">Message</label>
+        <div class="col s0 m2">
         </div>
-
-        <div class="input-field col s2 m2 l1 right-align">
-          <button class="btn-floating waves-effect waves-light red"
-          type="submit" id="addBtn">
-            <i class="material-icons">add</i>
-          </button>
+        <div class="col s12 m8">
+          <div class="card light-blue lighten-5 hoverable">
+            <div class="card-content black-text">
+              <span class="card-title">Student Information</span>
+              <div class="row">
+                <form id="student_form" class="col s12">
+                  <div class="row">
+                    <div class="input-field col s12 m6">
+                      <input name="first_name" id="first_name" type="text" class="validate">
+                      <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                      <input name="last_name" id="last_name" type="text" class="validate">
+                      <label for="last_name">Last Name</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input name="email" id="email" type="email" class="validate">
+                      <label for="email">Email</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m6">
+                      <input name="age" id="age" type="text" class="validate">
+                      <label for="age">Age</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                      <input class="with-gap" name="gender" type="radio" id="gender_male" />
+                      <label for="gender_male">Male</label>
+                      <input class="with-gap" name="gender" type="radio" id="gender_female" />
+                      <label for="gender_female">Female</label>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card-action center">
+              <a id="save_btn" class="waves-effect waves-light btn light-blue">submit</a>
+            </div>
+          </div>
         </div>
       </div>
 

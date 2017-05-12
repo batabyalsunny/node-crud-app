@@ -49,12 +49,12 @@ var dbItem = TestModel({
   age: 23
 });
 
-dbItem.save(function (err) {
-  if (err) {
-    throw err;
-  }
-  console.log('Item Saved');
-})
+// dbItem.save(function (err) {
+//   if (err) {
+//     throw err;
+//   }
+//   console.log('Item Saved');
+// })
 
 // set listen port
 app.listen(3000);
