@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Node CRUD App</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Compiled and minified css for material-icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  </head>
+
+  <body>
+    <header>
+      <!--Materialize nav bar -->
+      <nav class="light-blue">
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo center">Node.js CRUD App</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">View</a></li>
+            <li><a href="/insert">Insert</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <div class="col s0 m2">
+        </div>
+
+        <!-- Materialize card -->
+        <div class="col s12 m8">
+          <div class="card light-blue lighten-5 hoverable">
+            <div class="card-content black-text">
+              <span class="card-title">Student Information</span>
+              <div class="row">
+
+                <!-- Insert from -->
+                <form id="student_form" class="col s12">
+                  <div class="row">
+                    <div class="input-field col s12 m6">
+                      <input name="first_name" id="first_name" type="text"
+                      class="validate">
+                      <label for="first_name">First Name</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                      <input name="last_name" id="last_name" type="text"
+                      class="validate">
+                      <label for="last_name">Last Name</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12">
+                      <input name="email" id="email" type="email"
+                      class="validate">
+                      <label for="email">Email</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s12 m6">
+                      <input name="age" id="age" type="text" class="validate">
+                      <label for="age">Age</label>
+                    </div>
+                    <div class="input-field col s12 m6">
+                      <input class="with-gap" name="gender" type="radio"
+                      id="gender_male" value="M" />
+                      <label for="gender_male">Male</label>
+                      <input class="with-gap" name="gender" type="radio"
+                      id="gender_female" value="F" />
+                      <label for="gender_female">Female</label>
+                    </div>
+                  </div>
+                </form>
+
+                <!-- Spinner -->
+                <div id="spinner" class="center">
+                  <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-red">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-yellow">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-green">
+                      <div class="circle-clipper left">
+                        <div class="circle"></div>
+                      </div><div class="gap-patch">
+                        <div class="circle"></div>
+                      </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card actions -->
+            <div class="card-action center">
+              <a id="save_btn" class="waves-effect waves-light btn light-blue">
+                submit
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Import jQuery -->
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous">
+    </script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js">
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#spinner').hide();
+
+        $('#save_btn').on('click', function() {
+          var data = {
+            name: $('#first_name').val() + ' ' + $('#last_name').val(),
+            email: $('#email').val(),
+            age: $('#age').val(),
+            gender: $("[name=gender]").val()
+          };
+          $.ajax({
+            url: '/insert',
+            type: 'POST',
+            data: data,
+            beforeSend: function () {
+              $('#student_form').hide();
+              $('#spinner').show();
+            },
+            success: function (res) {
+              Materialize.toast('Insert Successfull', 4000, '', function () {
+                window.location.href = "/";
+              });
+            },
+            error: function (err) {
+              $('#spinner').hide();
+              Materialize.toast('Failed to Insert', 4000);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

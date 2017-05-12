@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Node CRUD App</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Compiled and minified css for material-icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+  </head>
+
+  <body>
+    <header>
+      <!--Materialize nav bar -->
+      <nav class="light-blue">
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo center">Node.js CRUD App</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="/">View</a></li>
+            <li><a href="/insert">Insert</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="row">
+        <ul class="collection with-header">
+          <li class="collection-header center"><h4>Messages</h4></li>
+          <% data.forEach(function(item) { %>
+            <li class="collection-item" data-item="<%= item.message %>"><%= item.name %>
+              <a href="#" class="delBtn">
+                <i class="right material-icons">delete</i>
+              </a>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+
+    <!--Import jQuery -->
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous">
+    </script>
+
+    <!-- Compiled and minified JavaScript -->
+    <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js">
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $("#addBtn").on('click', function() {
+          var data = {message: $("#message").val()};
+          jQuery.post('/insert', data, function() {
+            location.reload();
+          });
+        });
+
+        $('li').on('click', function() {
+          var item = $(this).data('item');
+          $.ajax({
+            url: '/del/' + item,
+            type: 'DELETE',
+            success: function() {
+              location.reload();
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

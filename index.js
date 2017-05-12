@@ -10,51 +10,54 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 // set default view engine to ejs
 app.set('view engine', 'ejs');
 
-var data = [];
-
-// handle get request for the default landing page
-app.get('/', function(req, res) {
-  res.render('index', {data: data});
-});
-
-// handle post request for insert
-app.post('/insert', urlencodedParser, function(req, res) {
-  data.push(req.body);
-  res.send(data);
-});
-
-// handle delete request
-app.delete('/del/:item', function(req, res) {
-  data = data.filter(function (item) {
-    return item.message !== req.params.item;
-  });
-  res.send(data);
-});
-
 // connect to database
 mongoose.connect('mongodb://localhost/test');
 
 // create database schema
-var testSchema = new mongoose.Schema({
+var studentInformation = new mongoose.Schema({
   name: String,
-  age: Number
+  email: String,
+  age: Number,
+  gender: String
 });
 
 // create model
-var TestModel = mongoose.model('TestModel', testSchema);
+var Student = mongoose.model('Student', studentInformation);
 
-// insert item
-var dbItem = TestModel({
-  name: 'Sunny',
-  age: 23
+// handle get request for the default landing page
+app.get('/', function(req, res) {
+  Student.find({}, function (err, data) {
+    if (err) {
+      throw err;
+    }
+    res.render('view', {data: data});
+  });
 });
 
-// dbItem.save(function (err) {
-//   if (err) {
-//     throw err;
-//   }
-//   console.log('Item Saved');
-// })
+// handle post request to populate insert page
+app.get('/insert', function(req, res) {
+  res.render('insert');
+});
+
+// handle post request for insert
+app.post('/insert', urlencodedParser, function(req, res) {
+  var newStudent = Student(req.body).save(function (err, data) {
+    if (err) {
+      throw err;
+    }
+    res.json({
+      status: 'Success'
+    });
+  });
+});
+
+// // handle delete request
+// app.delete('/del/:item', function(req, res) {
+//   data = data.filter(function (item) {
+//     return item.message !== req.params.item;
+//   });
+//   res.send(data);
+// });
 
 // set listen port
 app.listen(3000);
